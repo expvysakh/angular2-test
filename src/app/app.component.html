@@ -1,0 +1,133 @@
+
+<div class= "container">
+  <div class= "col-md-12">
+    <h2>Employee Data Filtering Application </h2>
+    <hr>
+     <div class="row">
+      <div class="col-md-6">
+        <span class="label label-success">Select Field Filter</span><br><br>
+        <select [(ngModel)]="fieldfilter" #selectfield (change)= "id= selectfield.value" class= "selectpicker">
+          <option  value="{{item.id}}" *ngFor="let item of fieldFilters">{{item.filter}}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-6">
+        <div *ngIf= "selectfield.value == 1">
+          <span class="label label-success">Select Operator Filter</span><br><br>
+          <select [(ngModel)]="operatorfilter" class= "selectpicker" #selectoperator>
+            <option  value="{{item}}" *ngFor="let item of employeeNumber">{{item}}</option>
+          </select> 
+        </div>
+
+        <div *ngIf= "selectfield.value == 2">
+        <span class="label label-success">Select Operator Filter</span><br><br>
+        <select [(ngModel)]="operatorfilter" class= "selectpicker" #selectoperator>
+          <option value="{{item}}" *ngFor="let item of employeeName">{{item}}</option>
+        </select>
+        </div>
+
+        <div *ngIf= "selectfield.value == 3">
+        <span class="label label-success">Select Operator Filter</span><br><br>
+        <select [(ngModel)]="operatorfilter" class= "selectpicker" #selectoperator>
+          <option value="{{item}}" *ngFor="let item of dateOfJoining">{{item}}</option>
+        </select>
+        </div>
+
+        <div *ngIf= "selectfield.value == 4">
+        <span class="label label-success">Select Operator Filter</span><br><br>
+        <select [(ngModel)]="operatorfilter" class= "selectpicker" #selectoperator>
+          <option value="{{item}}" *ngFor="let item of commonArray">{{item}}</option>
+        </select>
+        </div>
+
+        <div *ngIf= "selectfield.value == 5">
+        <span class="label label-success">Select Operator Filter</span><br><br>
+        <select [(ngModel)]="operatorfilter" class= "selectpicker" #selectoperator>
+          <option value="{{item}}" *ngFor="let item of commonArray">{{item}}</option>
+        </select>
+        </div>
+
+      </div> 
+       
+      <div class="row"> 
+      <form (ngSubmit) = "Filter()" #form = "ngForm">
+        <!--Employee number picker-->
+         <div *ngIf="this.employeeNumberFlag1">
+         <span class="label label-success">Enter the emnployee number</span><br><br>        
+         <input name="empnumber" required [(ngModel)]="empnumber" type="text" class= "form-control" id="employeeNumber">
+         </div> 
+
+         <div *ngIf="this.employeeNumberFlag2">
+         <span class="label label-success">Emnployee number from</span><br><br>        
+         <input name="empnumberFrom" required [(ngModel)]="empnumberFrom"type="text" class= "form-control" id="empNumberFrom">
+         <span class="label label-success">Emnployee number to</span><br><br>        
+         <input name="empnumberTo" required [(ngModel)]="empnumberTo" type="text" class= "form-control" id="empNumberTo">
+         </div>
+       <!--Employee name picker-->
+         <div *ngIf="this.employeeNameFlag">
+         <span class="label label-success">Enter the emnployee name</span><br><br>        
+         <input name="employeeName" required [(ngModel)]="employeeName" type="text" class= "form-control" id="employeeName">
+         </div> 
+       <!--Employee joining date picker-->
+         <div *ngIf="this.employeeDate1">
+         <span class="label label-success">Pick the date</span><br><br>        
+         <input name="date" required [(ngModel)]="date" type="date" class= "form-control" id= "date">
+         </div>
+         <div *ngIf="this.employeeDate2">
+         <span class="label label-success">Date from</span><br><br>        
+         <input name="datefrom" required [(ngModel)]="datefrom" type="date" class= "form-control" id= "datefrom">
+         <span class="label label-success">Date to</span><br><br>        
+         <input name="dateto" required [(ngModel)]="dateto" type="date" class= "form-control" id= "dateto">
+         </div>
+       <!--Employee designation picker-->
+         <div *ngIf="this.employeeDesi1">
+         <span class="label label-success">In</span><br><br>        
+         <input name="designationin" required [(ngModel)]="designationin" type="text" class= "form-control" id= "designationin">
+         </div>
+         <div *ngIf="this.employeeDesi2">
+         <span class="label label-success">Not in</span><br><br>        
+         <input name="designationnot" required [(ngModel)]="designationnot" type="text" class= "form-control" id= "designationinnot">
+         </div>
+      <!--Employee band picker-->
+         <div *ngIf="this.employeeBand1">
+         <span class="label label-success">In</span><br><br>        
+         <input name="bandin" required [(ngModel)]="bandin" type="text" class= "form-control" id= "bandin">
+         </div>
+         <div *ngIf="this.employeeBand2">
+         <span class="label label-success">Not in</span><br><br>        
+         <input  name="bandnot" required [(ngModel)]="bandnot" type="text" class= "form-control" id= "bandnot">
+         </div>
+         <div *ngIf= "this.buttonFlag">
+         <button id = "submit" *ngIf= "this.buttonFlag" type= "submit" [disabled]= "!form.valid" class= "btn btn-success">Filter</button><br>
+         </div>
+
+     </form>  
+     <div *ngIf= "this.buttonFlag">
+         <button id = "clear" *ngIf= "this.buttonFlag" type= "button" [disabled]= "!form.valid" class= "btn btn-success">Clear</button><br>
+         </div>
+      </div>  
+      <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Employee Number</th>
+            <th>Employee Name</th>
+            <th>Date Of Joining</th>
+            <th>Designation</th>
+            <th>Band</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of employees">
+          <tr>
+            <td>{{item.empnum}}</td>
+            <td>{{item.empname}}</td>
+            <td>{{item.dob}}</td>
+            <td>{{item.des}}</td>
+            <td>{{item.band}}</td>
+          </tr>
+        </tbody>  
+      </table>  
+      </div>  
+    </div>
+  </div>
+</div>
